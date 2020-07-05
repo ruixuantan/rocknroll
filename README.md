@@ -1,7 +1,7 @@
 # Rock n Roll #
 A simple react project configured with webpack for d20 games.
 
-Link to heroku site:
+Link to heroku site: rockndie.herokuapp.com
 
 ### Build project ###
 ```console
