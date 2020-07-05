@@ -1,7 +1,7 @@
 {
-  "name": "rocknroll-webpack",
+  "name": "rocknroll",
   "version": "1.0.0",
-  "description": "",
+  "description": "A die roller for d20 games",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "author": "",
+  "author": "rxtan",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.4",
