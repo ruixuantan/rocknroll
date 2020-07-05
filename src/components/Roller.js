@@ -6,7 +6,7 @@ const roll = (side) => {
 }
 
 const expectedValue = (number) => {
-	return (number * (number + 1)) / (2 * number).toFixed(4)
+	return ((number + 1)/2).toFixed(2)
 }
 
 const Die = ({number, clickEvent}) => {
