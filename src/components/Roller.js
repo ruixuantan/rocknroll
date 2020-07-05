@@ -23,6 +23,7 @@ const Roller = () => {
 
 	const [results, setResult] = useState(new Array(MAXROWS).fill(null))
 	const [clicks, setClicks] = useState(0)
+	const [sum, setSum] = useState(0)
 
 	// some sort of a queue
 	const updateResult = (die, outcome) => {
@@ -32,9 +33,12 @@ const Roller = () => {
 			if (clicks < 8) {
 				prev[clicks] = toAdd
 				setClicks(clicks + 1)
+				setSum(sum + outcome)
 			} else {
+				const popped = prev[0].outcome
 				prev.shift();
 				prev = [...prev, toAdd];
+				setSum(sum + outcome - popped)
 			}
 			return prev
 		});
@@ -43,6 +47,7 @@ const Roller = () => {
 	const reset = () => {
 		setResult(new Array(MAXROWS).fill(null))
 		setClicks(0)
+		setSum(0)
 	}
 
 	return (
@@ -83,6 +88,12 @@ const Roller = () => {
 							<td>{res !== null ? res.outcome : null}</td>
 						</tr>
 						)}
+					{/* Sum indicator */}
+					<tr>
+						<th>sum</th>
+						<td></td>
+						<td>{sum}</td>
+					</tr>
 				</tbody>
 			</table>
 			
