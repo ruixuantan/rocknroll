@@ -10,7 +10,7 @@ const Die = ({number, clickEvent}) => {
 	return (
 		<button 
 			type="button" 
-			className="btn btn-sm btn-dark die-btn col-12"
+			className="btn btn-sm btn-dark die-btn"
 			onClick={() => clickEvent()}>
 			{dieName}
 		</button>
@@ -40,6 +40,11 @@ const Roller = () => {
 		});
 	}
 
+	const reset = () => {
+		setResult(new Array(MAXROWS).fill(null))
+		setClicks(0)
+	}
+
 	return (
 		<div>
 			<div className="container dice-container">
@@ -52,6 +57,12 @@ const Roller = () => {
 							number={die} 
 							clickEvent={() => updateResult(die, roll(die))} />
 					</div>)}
+				</div>
+				<div className="die-container">
+					<button 
+						className="btn btn-info clr-btn"
+						onClick={reset}>clear
+					</button>
 				</div>
 			</div>
 

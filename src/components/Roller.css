@@ -2,7 +2,7 @@
 	text-align: center;
 	float: none;
 	table-layout: fixed;
-	max-width: 600px;
+	max-width: 660px;
 	width: 80%;
 }
 
@@ -21,11 +21,17 @@
 	width: 60px;
 }
 
+.clr-btn {
+	border-radius: 10px;
+	padding: 5px;
+	width: 60px;
+}
+
 .results-table {
 	text-align: center;
 	float: none;
 	margin: 0 auto;
 	table-layout: fixed;
-	max-width: 600px;
+	max-width: 660px;
 	width: 80%;
 }
