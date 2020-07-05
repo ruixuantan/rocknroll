@@ -5,6 +5,10 @@ const roll = (side) => {
   return Math.floor(Math.random() * side) + 1;
 }
 
+const expectedValue = (number) => {
+	return (number * (number + 1)) / (2 * number).toFixed(4)
+}
+
 const Die = ({number, clickEvent}) => {
 	const dieName = 'd' + number
 	return (
@@ -24,21 +28,28 @@ const Roller = () => {
 	const [results, setResult] = useState(new Array(MAXROWS).fill(null))
 	const [clicks, setClicks] = useState(0)
 	const [sum, setSum] = useState(0)
+	const [expected, setExpected] = useState(0)
 
 	// some sort of a queue
 	const updateResult = (die, outcome) => {
 		const dieName = 'd' + die
 		setResult(prev => {
-			const toAdd = { "die": dieName, "outcome": outcome };
+			const toAdd = { 
+				"die": dieName, 
+				"outcome": outcome,
+				"expected": expectedValue(die)
+			};
 			if (clicks < 8) {
 				prev[clicks] = toAdd
 				setClicks(clicks + 1)
 				setSum(sum + outcome)
+				setExpected(expected + toAdd.expected)
 			} else {
-				const popped = prev[0].outcome
+				const popped = prev[0]
 				prev.shift();
 				prev = [...prev, toAdd];
-				setSum(sum + outcome - popped)
+				setSum(sum + outcome - popped.outcome)
+				setExpected(expected + toAdd.expected - popped.expected)
 			}
 			return prev
 		});
@@ -48,6 +59,7 @@ const Roller = () => {
 		setResult(new Array(MAXROWS).fill(null))
 		setClicks(0)
 		setSum(0)
+		setExpected(0)
 	}
 
 	return (
@@ -93,6 +105,12 @@ const Roller = () => {
 						<th>sum</th>
 						<td></td>
 						<td>{sum}</td>
+					</tr>
+					{/* Expected indicator */}
+					<tr>
+						<th>expected value</th>
+						<td></td>
+						<td>{expected.toFixed(2)}</td>
 					</tr>
 				</tbody>
 			</table>
