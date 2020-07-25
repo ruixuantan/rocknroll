@@ -9,6 +9,26 @@ const expectedValue = (number) => {
 	return ((number + 1)/2).toFixed(2)
 }
 
+const rollPointBuyStat = () => {
+  let rolls = [0, 0, 0, 0]
+  rolls = rolls.map(() => roll(6))
+  rolls.sort().shift()
+  return rolls.reduce((x, y) => x + y, 0)
+}
+
+const pointBuyArray = () => {
+  // Follows Matt Mercer's Point Buy System
+  let pointArray = [0, 0, 0, 0, 0, 0]
+
+  while (pointArray.reduce((x, y) => x + y, 0) < 70) {
+    pointArray = pointArray.map(score => rollPointBuyStat())
+  }
+
+  return pointArray
+    .reduce((acc, curr) => acc += "," + curr, "")
+    .substr(1)
+}
+
 const Die = ({number, clickEvent}) => {
 	const dieName = 'd' + number
 	return (
@@ -28,7 +48,8 @@ const Roller = () => {
 	const [results, setResult] = useState(new Array(MAXROWS).fill(null))
 	const [clicks, setClicks] = useState(0)
 	const [sum, setSum] = useState(0)
-	const [expected, setExpected] = useState(0)
+  const [expected, setExpected] = useState(0)
+  const [pointBuy, setPointBuy] = useState([])
 
 	// some sort of a queue
 	const updateResult = (die, outcome) => {
@@ -112,6 +133,14 @@ const Roller = () => {
 						<td></td>
 						<td>{expected.toFixed(2)}</td>
 					</tr>
+          {/* Point buy */}
+          <tr>
+            <td><button className="btn btn-sm btn-info" 
+                        onClick={() => setPointBuy(pointBuyArray())}>
+                        Point Buy</button></td>
+            <td></td>
+            <td>{pointBuy}</td>
+          </tr>
 				</tbody>
 			</table>
 			
